@@ -1,21 +1,22 @@
-console.log("Starting Server")
+
+
+const Port = 8081
+
+/////////////////////////////////////
+
+
+console.log("Starting Server On Port: "+Port)
 
 const WebS = require("ws")
-const wss = new WebS.Server({port:8081})
+const wss = new WebS.Server({port:Port})
 
-/*wss.on("connection",ws=>{
-    console.log("New Connection From ")
-    ws.on("message",msg=>{
-        console.log(JSON.stringify({func:msg.toString()}))
-        wss.broadcast(JSON.stringify({func:msg.toString()}))
-    })
-});*/
+
 
 wss.on("connection", function connection(ws, req) {
     console.log("New Connection From: " + req.socket.remoteAddress)
     ws.on("message",msg=>{
-        console.log("New Message: " + JSON.stringify({func:msg.toString()}))
-        wss.broadcast(JSON.stringify({func:msg.toString()}))
+        console.log("New Message: " + msg.toString())
+        wss.broadcast(msg.toString())
     })
 });
 
