@@ -16,13 +16,13 @@ const wss = new WebS.Server({ server: server })
 const app = require("express")()
 
 app.get("/", (req, res) => {
-  res.sendFile("/home/runner/Bluenet/index.html")
+  res.sendFile(__dirname + "/index.html")
 })
 app.get("/flabbergasted.png", (req, res) => {
-  res.sendFile("/home/runner/Bluenet/flabbergasted.png")
+  res.sendFile(__dirname + "/flabbergasted.png")
 })
 app.get("/flabbergasted.gif", (req, res) => {
-  res.sendFile("/home/runner/Bluenet/flabbergasted.gif")
+  res.sendFile(__dirname + "/flabbergasted.gif")
 })
 
 server.on("request", app)
