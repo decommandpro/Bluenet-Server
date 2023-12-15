@@ -45,4 +45,4 @@ wss.broadcast = function broadcast(msg) {
   });
 };
 
-server.listen(Port)
+server.listen(Port, "0.0.0.0")
