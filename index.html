@@ -1,0 +1,276 @@
+<html>
+  <head>
+    <title>Bluenet Interface</title>
+    <meta property="og:title" content="Bluenet">
+    <meta propery="og:site_name" content="Bluenet">
+    <meta property="og:description" content="The Web Interface For Bluenet">
+    <meta property="og:image" content="https://bluenet.decommandpro.repl.co/flabbergasted.gif">
+    <meta property="og:video" content="https://bluenet.decommandpro.repl.co/flabbergasted.gif">
+    <script>
+
+      function send() {
+        let from = document.getElementById("from").value
+        let to = document.getElementById("to").value
+        let message = document.getElementById("message").value
+        let protocol = document.getElementById("protocol").value
+
+        ws.send(JSON.stringify({"from": from, "to": to, "message": JSON.parse(message), "protocol": protocol}))
+      }
+      
+      function addLog(from, to, msg, pro) {
+        let outField = document.getElementById("outField")
+
+        outField.innerHTML += `
+          
+          <div id="out" class="out">
+            <div id="outFrom" class="outFrom">
+              <p style="font-size: 22px;">${from}</p>
+            </div>
+            
+            <div id="outTo" class="outTo">
+              <p style="font-size: 22px;">${to}</p>
+            </div>
+            
+            <div id="outMessage" class="outMessage">
+              <p style="font-size: 22px;">${msg}</p>
+            </div>
+
+            <div id="outProtocol" class="outProtocol">
+              <p style="font-size: 22px;">${pro}</p>
+            </div>
+          </div>
+          
+        `
+      }
+
+
+
+
+
+      const ws = new WebSocket("wss://bluenet.decommandpro.repl.co")
+      ws.onmessage = function(event) {
+        let data = JSON.parse(event.data)
+        addLog(data.from, data.to, JSON.stringify(data.message), data.protocol)
+      }
+      
+      /*window.addEventListener("load", function() {
+        let outField = document.getElementById("outField")
+        console.log(outField)
+        for (let i = 0; i < 50; i++) {
+          outField.innerHTML += `
+          
+          <div id="out" class="out">
+            <div id="outFrom" class="outFrom">
+              <p style="font-size: 22px;">testFrom</p>
+            </div>
+            
+            <div id="outTo" class="outTo">
+              <p style="font-size: 22px;">testTo</p>
+            </div>
+            
+            <div id="outMessage" class="outMessage">
+              <p style="font-size: 22px;">testMessage</p>
+            </div>
+
+            <div id="outProtocol" class="outProtocol">
+              <p style="font-size: 22px;">testProtocol</p>
+            </div>
+          </div>
+          
+          `
+        }
+      })*/
+    </script>
+    <style>
+
+      ::placeholder {
+        color: #112244;
+        opacity: 1;
+      }
+
+      
+      
+      html {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #113355;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      p {
+        color: #ffffff;
+        font-size: 24px;
+      }
+      h1 {
+        color: #22eeff;
+        font-size: 60px;
+        margin-bottom: 2%;
+      }
+      
+      .div {
+        display: flex;        
+      }
+      .outBox {
+        width: 50%;
+        height: 50%;
+        border-radius: 30px;
+        background-color: #112244;
+        display: flex;
+        position: relative;
+      }
+      .outBar {
+        width: 100%;
+        height: 15%;
+        border-style: none none solid none;
+        border-color: #999999;
+        border-width: 2px;
+        display: flex;
+        align-items: center;
+      }
+      .text {
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .outField {
+        width: 100%;
+        height: 75%;
+        top: 15%;
+        position: absolute;
+        overflow: auto;
+        border-style: none none solid none;
+        border-color: #999999;
+        border-width: 2px;
+      }
+      .out {
+        width: 100%;
+        height: 20%;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+      }
+      .outFrom {
+        width: 15%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hide;
+      }
+      .outTo {
+        width: 15%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hide;
+      }
+      .outMessage {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hide;
+      }
+      .outProtocol {
+        width: 20%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hide;
+      }
+
+
+
+      .sendArea {
+        width: 60%;
+        height: 60px;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .sendBox {
+        width: 80%;
+        height: 60px;
+        border-radius: 30px;
+        background-color: #112244;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .sendTextBox {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .sendText {
+        width: calc(100% - 9px);
+        height: calc(100% - 9px);
+
+        background-color: #224466;
+        color: #ffffff;
+        border-style: none;
+        border-radius: 30px;
+        font-size: 22;
+        font-family: verdana;
+        text-align: center;
+      }
+      .sendButton {
+        width: 10%;
+        height: 100%;
+        margin-left: 2%;
+        border-radius: 30px;
+        border-style: none;
+        background-color: #112244;
+        color: #ffffff;
+        font-size: 22;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bluenet</h1>
+    <div class="outBox">
+      <div class="outBar">
+        <div class="text" style="width: 15%;"><p style="font-family: verdana">From</p></div>
+        <div class="text" style="width: 15%;"><p style="font-family: verdana">To</p></div>
+        <div class="text" style="width: 50%;"><p style="font-family: verdana">Message</p></div>
+        <div class="text" style="width: 20%;"><p style="font-family: verdana">Protocol</p></div>
+      </div>
+
+      <div style="border-style: none solid none solid; border-width: 2px; border-color: #999999; left: 15%; width: 15%; height: 90%; position: absolute;"></div>
+      
+      <div style="border-style: none solid none none; border-width: 2px; border-color: #999999; left: 30%; width: 50%; height: 90%; position: absolute;"></div>
+      
+      <div id="outField" class="outField">
+        
+      </div>
+      
+    </div>
+
+    <div class="sendArea">
+      <div class="sendBox">
+        <div class="sendTextBox" style="width: 15%;"><input id="from" class="sendText" type="text" placeholder="From"></div>
+        <div class="sendTextBox" style="width: 15%;"><input id="to" class="sendText" type="text" placeholder="To"></div>
+        <div class="sendTextBox" style="width: 50%;"><input id="message" class="sendText" type="text" placeholder="Message"></div>
+        <div class="sendTextBox" style="width: 20%;"><input id="protocol" class="sendText" type="text" placeholder="Protocol"></div>
+      </div>
+      <button class="sendButton" onclick="send()">Send</button>
+    </div>
+  </body>
+</html>
